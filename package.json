@@ -1,0 +1,5 @@
+{
+	"scripts": {
+		"dev:ios": "flutter emulators --launch apple_ios_simulator && flutter run"
+	}
+}
