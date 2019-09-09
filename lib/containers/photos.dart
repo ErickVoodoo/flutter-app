@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/containers/information.dart';
 import 'package:flutter_app/models/photos.dart';
 
 import 'package:flutter_app/components/list-item.dart';
@@ -13,7 +14,7 @@ class PhotosState extends State<Photos> {
   final int albumId;
   bool loading = true;
 
-  PhotosState({ this.albumId });
+  PhotosState({ @required this.albumId });
 
   List<PhotoModel> _photos = List<PhotoModel>();
 
@@ -30,6 +31,15 @@ class PhotosState extends State<Photos> {
           });
         });
     });
+  }
+
+  void navigateToInformation(context, PhotoModel photo) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        transitionDuration: Duration(seconds: 1),
+        pageBuilder: (_, __, ___) => Information(photo: photo,),
+      ),
+    );
   }
 
   @override
@@ -54,6 +64,9 @@ class PhotosState extends State<Photos> {
                       title: _photos[index].title,
                       description: _photos[index].url,
                       imageUri: _photos[index].url,
+                      onPressed: () {
+                        navigateToInformation(context, _photos[index]);
+                      },
                     );
                   }
                 ),
